@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Planetarium</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        canvas {
+            background-color: black;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Planetarium</h1>
+    <p>{{ message }}</p>
+
+    <form method="POST">
+        <label for="planet">Escolha um planeta:</label>
+        <select name="planet" id="planet">
+            {% for name in planet_dict.keys() %}
+                <option value="{{ name }}">{{ name.capitalize() }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Visualizar</button>
+    </form>
+
+    <canvas id="space" width="{{ CANVAS_WIDTH }}" height="{{ CANVAS_HEIGHT }}"></canvas>
+
+    <script>
+        const canvas = document.getElementById('space');
+        const ctx = canvas.getContext('2d');
+
+        // Renderizar estrelas
+        const stars = {{ stars | tojson }};
+        stars.forEach(star => {
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+            ctx.fill();
+        });
+
+        // Renderizar planeta
+        {% if planet_data %}
+            const planet = {{ planet_data | tojson }};
+            ctx.fillStyle = planet.color || 'gray';
+            ctx.beginPath();
+            ctx.arc(canvas.width / 2, canvas.height / 2, planet.size || 10, 0, Math.PI * 2);
+            ctx.fill();
+        {% endif %}
+    </script>
+</body>
+</html>
