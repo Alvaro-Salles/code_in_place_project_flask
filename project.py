@@ -8,6 +8,19 @@ CANVAS_HEIGHT = 400
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+
+    planet_dict = {
+        'mercury': {'color': 'darkgoldenrod', 'size': 20},
+        'venus': {'color': 'goldenrod', 'size': 50},
+        'earth': {'color': 'royalblue', 'size': 50},
+        'mars': {'color': 'red', 'size': 20},
+        'jupiter': {'color': 'burlywood', 'size': 300},
+        'saturn': {'color': 'tan', 'size': 300},
+        'uranus': {'color': 'cyan', 'size': 230},
+        'neptune': {'color': 'dodgerblue', 'size': 230},
+        'sun': {'color': 'yellow', 'size': 1000},
+        'pluto': {'color': None, 'size': None}
+    }
     planet = None
     stars = generate_stars()
     message = "Bem-vindo ao Planetarium! Escolha um planeta para visualizar."
@@ -29,18 +42,6 @@ def generate_stars():
         stars.append({'x': x, 'y': y, 'size': size})
     return stars
 
-planet_dict = {
-    'mercury': {'color': 'darkgoldenrod', 'size': 20},
-    'venus': {'color': 'goldenrod', 'size': 50},
-    'earth': {'color': 'royalblue', 'size': 50},
-    'mars': {'color': 'red', 'size': 20},
-    'jupiter': {'color': 'burlywood', 'size': 300},
-    'saturn': {'color': 'tan', 'size': 300},
-    'uranus': {'color': 'cyan', 'size': 230},
-    'neptune': {'color': 'dodgerblue', 'size': 230},
-    'sun': {'color': 'yellow', 'size': 1000},
-    'pluto': {'color': None, 'size': None}
-}
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
